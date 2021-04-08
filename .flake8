@@ -1,0 +1,5 @@
+[flake8]
+; to make sure flake8 is compatible with black
+max-line-length = 88
+max-complexity = 12
+ignore = E501, W503, E203
