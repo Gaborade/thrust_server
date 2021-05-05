@@ -18,11 +18,11 @@ jobs:
                 name: Run the tests
             # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
             - store_test_results:
-                path: test_results
+                path: /tmp/test-results
             # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
             - store_artifacts:
-                path: test_results
-
+                path: /tmp/test-results
+                destination: test-results
 
 orbs:
     python: circleci/python@1.4.0
