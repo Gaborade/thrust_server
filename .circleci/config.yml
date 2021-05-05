@@ -1,0 +1,36 @@
+jobs:
+    build_and_test:  # build_and_run_tests name of job. So can have another job for eg named deploy
+
+        executor: python/default
+        steps:
+        # checkout does a git clone of the product repo/ alias for git clone
+            - checkout
+            - python/install-packages:
+                pkg-manager: poetry
+                venv-cache: true   # to save venv-cache
+            - run:
+                command: |
+                    poetry run flake8
+                name: Run the tests
+            - run:
+                command: |
+                    poetry run pytest
+                name: Run the tests
+            # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+            - store_test_results:
+                path: test_results
+            # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+            - store_artifacts:
+                path: test_results
+
+
+orbs:
+    python: circleci/python@1.4.0
+version: 2.1    # specify version of circleci
+# optional name given to build, in this case build_and_test
+# with workflows you specify how you want your builds to run. At this particular moment,
+# there is only one build ergo -run_tests. Later i can have a deploy build
+workflows:
+    main:
+        jobs:
+            - build_and_test

@@ -1,14 +1,17 @@
+from typing import Callable
+
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, jsonify, url_for
+from flask import Flask, Response, jsonify, url_for
 
 from . import config
 
-__version__ = "0.1.0"
+__version__: str = "0.1.0"
 
-app = Flask(__name__)
-app.secret_key = "constantinople"
-oauth = OAuth(app)
+app: Flask = Flask(__name__)
 app.config.from_object(config.TestConfig)
+app.secret_key = app.config["SECRET_KEY"]
+oauth: OAuth = OAuth(app)
+
 
 oauth.register(
     name="github",
@@ -28,19 +31,19 @@ oauth.register(
 
 
 @app.route("/")
-def home():
+def home() -> str:
     return "Thrust the ci service"
 
 
 @app.route("/login")
-def login():
+def login() -> Callable:
     github = oauth.create_client("github")
     redirect_uri = url_for("authorize", _external=True)
     return github.authorize_redirect(redirect_uri)
 
 
 @app.route("/callback")
-def authorize():
+def authorize() -> Response:  # for json
     token = oauth.github.authorize_access_token()
     response = oauth.github.get("user", token=token)
     response.raise_for_status()

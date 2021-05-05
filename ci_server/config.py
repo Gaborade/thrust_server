@@ -22,3 +22,4 @@ class TestConfig(Config):
     DEBUG: bool = True
     SQLALCHEMY_DATABASE_URI: str = "sqlite:memory//"
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
+    SECRET_KEY: str = "constantinople"
