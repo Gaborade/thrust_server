@@ -6,3 +6,8 @@ help_text.txt
 .pytest_cache
 .mypy_cache
 .coverage
+todo.py
+app.db
+oauth_base.py
+push.py
+github_example.txt

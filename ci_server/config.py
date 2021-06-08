@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 from dotenv import load_dotenv
 
@@ -10,16 +10,35 @@ BASE_PATH = (
 ENV_PATH = BASE_PATH / ".env"
 load_dotenv(dotenv_path=ENV_PATH)
 
+# so i can work with path as string instead of pathlib paths, need to change it to still use Pathlibs later
+# since pathlibs are now the standard
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
 
 class Config:
     SQLALCHEMY_DATABASE_URI: Optional[str] = None
     SQLALCHEMY_TRACK_MODIFICATIONS: Optional[bool] = None
+    OAUTH_PROVIDERS: List[str] = []
 
 
-class TestConfig(Config):
+class DevelopmentConfig(Config):
     CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
     DEBUG: bool = True
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:memory//"
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///" + os.path.join(base_dir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
     SECRET_KEY: str = "constantinople"
+    OAUTH_PROVIDERS: List[str] = ["github"]  # will change how this works later on
+
+
+class ProductionConfig(Config):
+    DEBUG: bool = False
+    SQLALCHEMY_TRACK_MODIFICATIONS: bool = True
+    CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
+    CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
+
+
+configuration_environment = {
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+}
