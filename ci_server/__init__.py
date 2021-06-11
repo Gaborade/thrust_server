@@ -24,7 +24,7 @@ app.secret_key = app.config["SECRET_KEY"]
 oauth: OAuth = OAuth(app)
 db: SQLAlchemy = SQLAlchemy(app)
 migrate: Migrate = Migrate(app, db)
-login = LoginManager(app)
+login: LoginManager = LoginManager(app)
 
 
 # to avoid circular imports
@@ -174,5 +174,5 @@ def show_profile():
 
 @app.route("/logout")
 def logout():
-    logout_user
+    logout_user()
     return redirect(url_for("home"))

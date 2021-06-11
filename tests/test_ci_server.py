@@ -1,6 +1,7 @@
 import pytest
 
-from ci_server import __version__, app
+from ci_server import app
+from version import __version__
 
 
 @pytest.fixture
@@ -13,7 +14,7 @@ def client():
 def test_home_page(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert b"Thrust the ci service" in response.data
+    assert b"Thrust the ci service rocks" in response.data
 
 
 def test_version():
