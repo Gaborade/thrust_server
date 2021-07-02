@@ -5,7 +5,7 @@ description = ""
 authors = ["Gabriel Boachie-Danquah <gabdanq@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "3.8.1"
 Flask = "^1.1.2"
 Authlib = "^0.15.3"
 requests = "^2.25.1"
