@@ -25,7 +25,9 @@ class DevelopmentConfig(Config):
     CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
     DEBUG: bool = True
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:///" + os.path.join(base_dir, "app.db")
+    SQLALCHEMY_DATABASE_URI: Optional[str] = "sqlite:///" + os.path.join(
+        base_dir, "app.db"
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
     SECRET_KEY: str = "constantinople"
     OAUTH_PROVIDERS: List[str] = ["github"]  # will change how this works later on
@@ -36,6 +38,7 @@ class ProductionConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = True
     CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
+    SQLALCHEMY_DATABASE_URI: Optional[str] = os.environ.get("DATABASE_URL")
 
 
 configuration_environment = {
