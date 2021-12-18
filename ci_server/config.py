@@ -29,16 +29,17 @@ class DevelopmentConfig(Config):
         base_dir, "app.db"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
-    SECRET_KEY: str = "constantinople"
+    SECRET_KEY: Optional[str] = os.environ.get("SECRET_KEY")
     OAUTH_PROVIDERS: List[str] = ["github"]  # will change how this works later on
 
 
 class ProductionConfig(Config):
     DEBUG: bool = False
-    SQLALCHEMY_TRACK_MODIFICATIONS: bool = True
+    SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
     CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
     SQLALCHEMY_DATABASE_URI: Optional[str] = os.environ.get("DATABASE_URL")
+    SECRET_KEY: Optional[str] = os.environ.get("SECRET_KEY")
 
 
 configuration_environment = {
