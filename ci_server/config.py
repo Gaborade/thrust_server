@@ -20,7 +20,8 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     CLIENT_ID: Optional[str] = os.environ.get("CLIENT_ID")
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
-    SQLALCHEMY_DATABASE_URI: Optional[str] = os.environ.get("DATABASE_URL")
+    # to work around heroku postgres debacle since you cannot change the url on their dashboard
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL").replace("postgres://", "posgresql://", 1)  # type: ignore
     SECRET_KEY: Optional[str] = os.environ.get("SECRET_KEY")
 
 
