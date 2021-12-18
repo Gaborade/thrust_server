@@ -45,7 +45,7 @@ def fetch_token(oauth_provider: str = "github") -> dict:
         name=oauth_provider, user_id=current_user.id
     ).first()
     if token is None:
-        print("Token does not exist")
+        print("Token does not exist", file=sys.stderr)
         sys.exit(1)
     return token.to_token()
 

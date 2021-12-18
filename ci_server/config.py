@@ -6,7 +6,7 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
-    OAUTH_PROVIDERS: List[str] = []
+    OAUTH_PROVIDERS: List[str] = ["github"]
 
 
 class DevelopmentConfig(Config):
@@ -14,7 +14,6 @@ class DevelopmentConfig(Config):
     CLIENT_SECRET: Optional[str] = os.environ.get("CLIENT_SECRET")
     SQLALCHEMY_DATABASE_URI: str = "sqlite:///" + os.path.join(base_dir, "app.db")
     SECRET_KEY: Optional[str] = os.environ.get("SECRET_KEY")
-    OAUTH_PROVIDERS: List[str] = ["github"]  # will change how this works later on
 
 
 class ProductionConfig(Config):
