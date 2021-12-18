@@ -19,7 +19,10 @@ from .config import configuration_environment
 
 # instantiate classes
 app: Flask = Flask(__name__)
-app.config.from_object(configuration_environment["production"])
+if not app.debug:
+    app.config.from_object(configuration_environment["production"])
+else:
+    app.config.from_object(configuration_environment["development"])
 app.secret_key = app.config["SECRET_KEY"]
 oauth: OAuth = OAuth(app)
 db: SQLAlchemy = SQLAlchemy(app)
