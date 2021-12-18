@@ -1,21 +1,7 @@
 import os
-from pathlib import Path
 from typing import List, Optional
 
-from dotenv import load_dotenv
-
-from ci_server import app
-
-if app.debug:
-    BASE_PATH = (
-        Path(__file__).resolve(strict=True).parent.parent
-    )  # strict=True makes it an absolute path
-    ENV_PATH = BASE_PATH / ".env"
-    load_dotenv(dotenv_path=ENV_PATH)
-
-    # so i can work with path as string instead of pathlib paths, need to change it to still use Pathlibs later
-    # since pathlibs are now the standard
-    base_dir = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:

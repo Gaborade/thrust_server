@@ -11,3 +11,4 @@ app.db
 oauth_base.py
 push.py
 github_example.txt
+.flaskenv
